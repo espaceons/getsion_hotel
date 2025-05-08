@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="login-container">
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white">
+            <h2 class="text-center mb-0">Connexion Staff/Admin</h2>
+        </div>
+        
+        <div class="card-body">
+            {% if form.non_field_errors %}
+            <div class="alert alert-danger alert-dismissible fade show">
+                {% for error in form.non_field_errors %}
+                    <strong>Erreur :</strong> {{ error }}
+                {% endfor %}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+            {% endif %}
+
+            <form method="post" class="needs-validation" novalidate>
+                {% csrf_token %}
+                
+                <div class="mb-3">
+                    <label for="id_username" class="form-label">
+                        <i class="bi bi-person-fill"></i> Nom d'utilisateur
+                    </label>
+                    <input type="text" 
+                           class="form-control form-control-lg {% if form.username.errors %}is-invalid{% endif %}" 
+                           id="id_username"
+                           name="username"
+                           value="{{ form.username.value|default:'' }}"
+                           required>
+                    {% if form.username.errors %}
+                    <div class="invalid-feedback">
+                        {{ form.username.errors|first }}
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_password" class="form-label">
+                        <i class="bi bi-lock-fill"></i> Mot de passe
+                    </label>
+                    <input type="password" 
+                           class="form-control form-control-lg {% if form.password.errors %}is-invalid{% endif %}" 
+                           id="id_password"
+                           name="password"
+                           required>
+                    {% if form.password.errors %}
+                    <div class="invalid-feedback">
+                        {{ form.password.errors|first }}
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="rememberMe" name="remember_me">
+                    <label class="form-check-label" for="rememberMe">Rester connecté</label>
+                </div>
+
+                <input type="hidden" name="next" value="{% url 'dashboard:redirect' %}">
+
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        <i class="bi bi-box-arrow-in-right"></i> Se connecter
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div class="card-footer text-center">
+            <a href="{% url 'users:password_reset' %}" class="text-decoration-none">
+                Mot de passe oublié ?
+            </a>
+            {% if not request.user.is_authenticated %}
+            <div class="mt-2">
+                <a href="{% url 'users:register' %}" class="btn btn-outline-secondary btn-sm">
+                    Créer un compte staff
+                </a>
+                <a href="{% url 'dashboard:staff_dashboard' %}" class="btn btn-outline-info btn-sm ms-2">
+                    Prévisualisation staff
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<style>
+    .login-container {
+        max-width: 450px;
+        margin: 5rem auto;
+        padding: 0 15px;
+    }
+    .card {
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .form-control-lg {
+        padding: 12px 15px;
+    }
+</style>
+{% endblock %}

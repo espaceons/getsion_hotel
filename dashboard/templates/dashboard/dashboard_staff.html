@@ -1,0 +1,23 @@
+<!-- templates/dashboard/dashboard_staff.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>Bienvenue, {{ user.username }} !</h1>
+    <div class="alert alert-info">
+        <p>Vous êtes connecté en tant que <strong>membre du staff</strong>.</p>
+    </div>
+    
+    <div class="staff-actions">
+        <h3>Actions disponibles :</h3>
+        <div class="list-group">
+            <a href="#" class="list-group-item list-group-item-action">
+                Gestion des réservations
+            </a>
+            <a href="#" class="list-group-item list-group-item-action">
+                Voir les clients
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
