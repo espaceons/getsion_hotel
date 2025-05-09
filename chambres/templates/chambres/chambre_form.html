@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>{% if object %}Modifier{% else %}Ajouter{% endif %} une Chambre</h2>
+    
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">
+            <i class="fas fa-save"></i> Enregistrer
+        </button>
+        <a href="{% url 'chambres:chambre_liste' %}" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Annuler
+        </a>
+    </form>
+</div>
+{% endblock %}

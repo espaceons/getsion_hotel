@@ -10,6 +10,7 @@ class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = CustomUser
         fields = ['username', 'email', 'password1', 'password2', 'role']
+        
 
 class StaffCreationForm(UserCreationForm):
     phone = forms.CharField(max_length=20, required=True)

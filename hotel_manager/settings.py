@@ -35,6 +35,7 @@ LOGIN_URL = 'users:login'
 
 
 INSTALLED_APPS = [
+    'dashboard',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -44,11 +45,12 @@ INSTALLED_APPS = [
     
     # application metier:
     'users',
+    'hotel',
     'chambres',
     'reservations',
     'paiements',
     'services',
-    'dashboard',
+    
     'clients',
     
 ]

@@ -12,26 +12,25 @@ from django.views.decorators.debug import sensitive_post_parameters
 # Vue d'inscription (réservée aux admins)
 @login_required
 def register_view(request):
-    # Seuls les admins peuvent créer des comptes
+    # Seuls les administrateurs peuvent accéder à la création de comptes
     if not request.user.role == 'admin':
         messages.error(request, "Accès réservé aux administrateurs")
-        return redirect('dashboard:dashboard_redirect')
-    
+        return redirect('dashboard:redirect')
+
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            
-            # Message de succès
+            user = form.save()  # Création de l'utilisateur
+
+            # Message de confirmation
             messages.success(
-                request, 
+                request,
                 f"Compte créé pour {user.username} ({user.get_role_display()})"
             )
-            return redirect('user_management')  # Rediriger vers la gestion des utilisateurs
-            
+            return redirect('user_management')  # À adapter : page de gestion des utilisateurs
     else:
         form = CustomUserCreationForm()
-    
+
     context = {
         'form': form,
         'title': 'Création de compte staff'

@@ -5,6 +5,17 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
+            <!-- Liens à gauche -->
+            <ul class="navbar-nav me-auto">
+                {% if user.is_authenticated and user.role == 'admin' or user.role == 'staff' %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'chambres:chambre_liste' %}">
+                        <i class="bi bi-door-open"></i> Chambres
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+            <!-- Liens à droite -->
             <ul class="navbar-nav ms-auto">
                 {% if user.is_authenticated %}
                     {% if user.role == 'admin' %}
@@ -20,6 +31,9 @@
                         </a>
                     </li>
                     {% endif %}
+
+                    
+
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'users:logout' %}">
                             <i class="bi bi-box-arrow-right"></i> Déconnexion

@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Liste des Chambres</h2>
+    <a href="{% url 'chambres:chambre_ajouter' %}" class="btn btn-primary mb-3">
+        <i class="fas fa-plus"></i> Ajouter une chambre
+    </a>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Numéro</th>
+                <th>Type</th>
+                <th>Étage</th>
+                <th>Statut</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for chambre in chambres %}
+            <tr>
+                <td>{{ chambre.numero }}</td>
+                <td>{{ chambre.type_chambre.nom }}</td>
+                <td>{{ chambre.etage }}</td>
+                <td>
+                    <span class="badge bg-{% if chambre.statut == 'DISPONIBLE' %}success{% else %}warning{% endif %}">
+                        {{ chambre.get_statut_display }}
+                    </span>
+                </td>
+                <td>
+                    <a href="{% url 'chambres:detail' chambre.pk %}" class="btn btn-sm btn-info">
+                        <i class="fas fa-eye"></i>
+                    </a>
+                    <a href="{% url 'chambres:modifier' chambre.pk %}" class="btn btn-sm btn-warning">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <a href="{% url 'chambres:supprimer' chambre.pk %}" class="btn btn-sm btn-danger">
+                        <i class="fas fa-trash"></i>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

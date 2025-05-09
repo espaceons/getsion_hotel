@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Détails de la Chambre {{ object.numero }}</h2>
+    
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">{{ object.type_chambre.nom }}</h5>
+            <p class="card-text">
+                <strong>Étage:</strong> {{ object.etage }}<br>
+                <strong>Statut:</strong> 
+                <span class="badge bg-{% if object.statut == 'DISPONIBLE' %}success{% else %}warning{% endif %}">
+                    {{ object.get_statut_display }}
+                </span><br>
+                <strong>Notes:</strong> {{ object.notes|default:"Aucune note" }}
+            </p>
+            
+            <div class="mt-4">
+                <a href="{% url 'chambres:modifier' object.pk %}" class="btn btn-warning">
+                    <i class="fas fa-edit"></i> Modifier
+                </a>
+                <a href="{% url 'chambres:supprimer' object.pk %}" class="btn btn-danger">
+                    <i class="fas fa-trash"></i> Supprimer
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
